@@ -1,0 +1,8 @@
+<h2>Edit Note</h2>
+
+<form #formData="ngForm" (submit)="saveNote()">
+	Note:<input type="text" name="note" required minlength="5" [(ngModel)]="editedNote.note" #note="ngModel"><span *ngIf="note.dirty"><span *ngIf="note.errors?.minlength">Note must be at least 5 characters.</span></span><br />
+
+
+	<input type="submit" name="submit" value="Update the note" [disabled]="!formData.form.valid">
+</form>

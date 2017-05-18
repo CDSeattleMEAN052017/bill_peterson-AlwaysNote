@@ -1,0 +1,18 @@
+<form #formData="ngForm" (submit)="createNote()">
+	Note:<input type="text" name="note" required minlength="5" [(ngModel)]="newNote.note" #note="ngModel"><span *ngIf="note.dirty"><span *ngIf="note.errors?.minlength">Note must be at least 5 characters.</span></span><br />
+
+
+	<input type="submit" name="submit" value="Create new note" [disabled]="!formData.form.valid">
+</form>
+
+<table>
+	<tr>
+		<th>Id</th><th>Note</th><th>Date Created</th><th>Date Updated</th><th>Actions</th>
+	</tr>
+	<tr *ngFor="let note of notes; let i = index">
+		<th>{{note.id}}</th><th>{{note.note}}</th><th>{{note.created_at | date}}</th><th>{{note.updated_at | date}}</th><th><button type="button" name="delete" (click)="deleteNote(i)">Delete</button> <button type="button" name="edit" (click)="editNote(note)">Edit</button></th>
+	</tr>
+</table>
+
+{{selectedNote | json}}
+<app-notes-edit *ngIf="selectedNote" [thisNote]="selectedNote" (save)="updateNote($event)">Loading...</app-notes-edit>
